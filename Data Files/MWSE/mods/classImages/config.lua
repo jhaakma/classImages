@@ -1,7 +1,7 @@
 
 ---@class ClassImages.Config
 local config= {}
-config.metadata = toml.loadFile("Data Files\\ClassImages-metadata.toml") --[[@as MWSE.Metadata]]
+config.metadata = toml.loadFile("Data Files\\DynamicClassImages-metadata.toml") --[[@as MWSE.Metadata]]
 config.modName = config.metadata.package.name
 ---@class ClassImages.Config.mcm
 local mcmDefault = {

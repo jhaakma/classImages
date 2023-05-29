@@ -2,10 +2,10 @@ local common = require("classImages.common")
 local config = require("classImages.config")
 local metadata = config.metadata
 local LINKS_LIST = {
-    -- {
-    --     text = "Release history",
-    --     url = "https://github.com/jhaakma/classImages/releases"
-    -- },
+    {
+        text = "Release history",
+        url = "https://github.com/jhaakma/dynamic-class-images/releases"
+    },
     -- {
     --     text = "Wiki",
     --     url = "https://github.com/jhaakma/classImages/wiki"
@@ -15,15 +15,19 @@ local LINKS_LIST = {
     --     url = "https://www.nexusmods.com/morrowind/mods/52962"
     -- },
     {
-        text = "Buy me a coffee",
+        text = "Buy Merlord a coffee",
         url = "https://ko-fi.com/merlord"
     },
 }
 
 local CREDITS_LIST = {
     {
-        text = "Made by Merlord",
+        text = "Scripting by Merlord",
         url = "https://www.nexusmods.com/users/3040468?tab=user+files",
+    },
+    {
+        text = "Images and dynamic logic by Melchior Dahrk",
+        url = "https://www.nexusmods.com/morrowind/users/962116?tab=user+files",
     }
 }
 
