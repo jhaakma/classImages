@@ -1,5 +1,5 @@
 # Dynamic Class Images
-** Version 1.0.0
+## Version 1.0.0
 
 by Melchior Dahrk and Merlord
 Made for the Morrowind May Modathon 2023
