@@ -1,8 +1,5 @@
-local logger = require("logging.logger").new{
-    name = "Class Images",
-    logLevel = "DEBUG",
-    includeTimestamp = true,
-}
+local common = require("classImages.common")
+local logger = common.createLogger("ImagePiece")
 
 ---@alias ClassImages.ImagePiece.slot
 ---| `"Background_Left"`
@@ -88,8 +85,16 @@ function ImagePiece.register(e)
         classRequirements = e.classRequirements or {},
         isOr = e.isOr or false
     }
+    logger:assert(type(imagePiece.priority) == "number", "ImagePiece priority must be a number")
     logger:info("registering %s - %s", imagePiece.texture, imagePiece.priority)
-    ImagePiece.registeredPieces[tonumber(imagePiece.priority)] = imagePiece
+    table.insert(ImagePiece.registeredPieces, imagePiece)
+end
+
+function ImagePiece:getRegisteredPieces()
+    table.sort(ImagePiece.registeredPieces, function(a, b)
+        return a.priority < b.priority
+    end)
+    return ImagePiece.registeredPieces
 end
 
 return ImagePiece

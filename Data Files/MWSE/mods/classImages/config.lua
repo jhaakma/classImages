@@ -1,7 +1,132 @@
 
+---@class ClassImages.Config
 local config= {}
+config.metadata = toml.loadFile("Data Files\\ClassImages-metadata.toml") --[[@as MWSE.Metadata]]
+config.modName = config.metadata.package.name
+---@class ClassImages.Config.mcm
+local mcmDefault = {
+    enabled = true,
+    logLevel = "INFO"
+}
+
+---@type ClassImages.Config.mcm
+config.mcm = mwse.loadConfig(config.modName, mcmDefault)
+config.save = function()
+    mwse.saveConfig(config.modName, config.mcm)
+end
+
+config.maxPieces = 15
+
+---@class ClassImages.ImageConfig
+---@field imageBlockName string The name of the image block to use.
+---@field width number The width of the image block.
+---@field height number The height of the image block.
+---@field parentWidth number The width of the parent block.
+---@field parentHeight number The height of the parent block.
+
+---@type ClassImages.ImageConfig[]
+config.menuData = {
+    MenuLevelUp = {
+        imageBlockName = "MenuLevelUp_Picture",
+        width = 390,
+        height = 198,
+        parentWidth = 390,
+        parentHeight = 198,
+    },
+    MenuChooseClass = {
+        imageBlockName = "MenuChooseClass_description",
+        width = 256,
+        height = 128,
+        parentWidth = 264,
+        parentHeight = 136,
+    }
+}
+
 ---@type ClassImages.ImagePiece[]
 config.imagePieces = {
+    {
+        texture = "fill_A_R_alchemy",
+        priority = 6,
+        excludedPieces = { 310 },
+        slots = { "Background_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.alchemy },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {
+            { type =tes3.specialization.magic },
+        },
+    },
+    {
+        texture = "fill_A_L_Merch",
+        priority = 7,
+        excludedPieces = { 8 },
+        slots = { "Background_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.mercantile, major = true },
+            { type = tes3.skill.speechcraft, major = true },
+        },
+        attributeRequirements = {
+            { type = tes3.attribute.personality },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_A_R_Merch",
+        priority = 8,
+        excludedPieces = { 7 },
+        slots = { "Background_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.mercantile, major = true },
+            { type = tes3.skill.speechcraft, major = true },
+        },
+        attributeRequirements = {
+            { type = tes3.attribute.personality },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "misc_gold_CR_Luck",
+        priority = 9,
+        excludedPieces = { 10, 181, 340, 350, 360, 551 },
+        slots = { "Foreground_Right", "Below_Right_3" },
+        shieldState = "none",
+        isGold = true,
+        isFiller = false,
+        skillRequirements = {
+            { type = tes3.skill.mercantile },
+            { type = tes3.skill.sneak },
+            { type = tes3.skill.speechcraft },
+        },
+        attributeRequirements = {
+            { type = tes3.attribute.luck },
+        },
+        specialisationRequirements = {},
+		isOr = true,
+    },
+    {
+        texture = "fill_A_L_Luck_01",
+        priority = 10,
+        excludedPieces = { 9, 181, 551 },
+        slots = { "Background_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.luck },
+        },
+        specialisationRequirements = {},
+    },
     {
         texture = "fill_A_L_Books_01",
         priority = 11,
@@ -10,9 +135,13 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.alteration },
+            { type = tes3.skill.mysticism },
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_A_L_Books_02",
@@ -22,9 +151,13 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.restoration },
+            { type = tes3.skill.destruction },
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_A_L_Books_03",
@@ -34,9 +167,13 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.illusion },
+            { type = tes3.skill.conjuration },
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "armo_cuirass",
@@ -76,9 +213,14 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.mysticism },
+            { type = tes3.skill.restoration },
+			{ type = tes3.skill.destruction },
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_A_R_Books_02",
@@ -88,9 +230,14 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.alteration },
+            { type = tes3.skill.conjuration },
+			{ type = tes3.skill.illusion },
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "bk_scroll_open_pickssoulgems",
@@ -145,6 +292,20 @@ config.imagePieces = {
         specialisationRequirements = {
             { type = tes3.specialization.stealth },
         },
+    },
+    {
+        texture = "fill_A_L_Soulgems",
+        priority = 65,
+        excludedPieces = { 40, 60, 320 },
+        slots = { "Background_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.enchant, major = true },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {},
     },
     {
         texture = "bk_scroll_open",
@@ -235,9 +396,13 @@ config.imagePieces = {
         shieldState = "noShield",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.alteration},
+			{ type = tes3.skill.conjuration},
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_B_M_Books_02",
@@ -247,9 +412,13 @@ config.imagePieces = {
         shieldState = "noShield",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+			{ type = tes3.skill.destruction},
+			{ type = tes3.skill.illusion},
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_B_M_Books_03",
@@ -259,9 +428,13 @@ config.imagePieces = {
         shieldState = "noShield",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+			{ type = tes3.skill.mysticism},
+			{ type = tes3.skill.restoration},
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "bk_note",
@@ -280,7 +453,7 @@ config.imagePieces = {
     {
         texture = "armo_gloves",
         priority = 140,
-        excludedPieces = { 130, 340, 350 },
+        excludedPieces = { 130, 340, 350, 360 },
         slots = { "Foreground_Left", "Below_Left_3" },
         shieldState = "none",
         isGold = true,
@@ -353,7 +526,28 @@ config.imagePieces = {
             { type = tes3.skill.security, major = true },
             { type = tes3.skill.sneak, major = true },
         },
-        attributeRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.luck, negative = true },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "misc_gems_luck",
+        priority = 181,
+        excludedPieces = { 9,10, 551 },
+        slots = { "Foreground_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = false,
+        skillRequirements = {
+            { type = tes3.skill.athletics },
+            { type = tes3.skill.acrobatics },
+            { type = tes3.skill.security, major = true },
+            { type = tes3.skill.sneak, major = true },
+        },
+        attributeRequirements = {
+            { type = tes3.attribute.luck },
+        },
         specialisationRequirements = {},
     },
     {
@@ -434,7 +628,7 @@ config.imagePieces = {
     {
         texture = "armo_boots_leather",
         priority = 240,
-        excludedPieces = { 250 },
+        excludedPieces = { 250, 255 },
         slots = { "Background_Right", "Midground_Right" },
         shieldState = "none",
         isGold = false,
@@ -449,8 +643,23 @@ config.imagePieces = {
     {
         texture = "armo_boots_netch",
         priority = 250,
-        excludedPieces = { 240 },
+        excludedPieces = { 240, 255 },
         slots = { "Midground_Right", "Foreground_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = false,
+        skillRequirements = {
+            { type = tes3.skill.lightArmor },
+            { type = tes3.skill.sneak },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {},
+    },
+    {
+        texture = "armo_boots_netch_CL",
+        priority = 255,
+        excludedPieces = { 240, 250 },
+        slots = { "Background_Left", "Midground_Left" },
         shieldState = "none",
         isGold = false,
         isFiller = false,
@@ -471,7 +680,7 @@ config.imagePieces = {
         isFiller = false,
         skillRequirements = {
             { type = tes3.skill.security},
-            { type = tes3.skill.speechcraft},
+            { type = tes3.skill.speechcraft, negative = true },
         },
         attributeRequirements = {},
         specialisationRequirements = {},
@@ -486,7 +695,21 @@ config.imagePieces = {
         isFiller = false,
         skillRequirements = {
             { type = tes3.skill.security},
-            { type = tes3.skill.speechcraft, negative = true },
+            { type = tes3.skill.speechcraft },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_A_R_picks",
+        priority = 265,
+        excludedPieces = { 40, 50, 261, 262 },
+        slots = { "Background_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.security},
         },
         attributeRequirements = {},
         specialisationRequirements = {},
@@ -513,9 +736,13 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.alteration},
+			{ type = tes3.skill.conjuration},
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_C_L_Books_02",
@@ -525,9 +752,13 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.destruction},
+			{ type = tes3.skill.illusion},
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_C_L_Books_03",
@@ -537,9 +768,13 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.mysticism},
+			{ type = tes3.skill.restoration},
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_C_R_Books_01",
@@ -549,9 +784,14 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.alteration},
+			{ type = tes3.skill.conjuration},
+			{ type = tes3.skill.destruction},
+        },
         attributeRequirements = {},
         specialisationRequirements = {},
+		isOr = true,
     },
     {
         texture = "fill_C_R_Books_02",
@@ -561,14 +801,51 @@ config.imagePieces = {
         shieldState = "none",
         isGold = false,
         isFiller = true,
-        skillRequirements = {},
+        skillRequirements = {
+            { type = tes3.skill.illusion},
+			{ type = tes3.skill.mysticism},
+			{ type = tes3.skill.restoration},
+        },
         attributeRequirements = {},
+        specialisationRequirements = {},
+		isOr = true,
+    },
+    {
+        texture = "fill_C_R_abacus",
+        priority = 295,
+        excludedPieces = { 296 },
+        slots = { "Foreground_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.mercantile, major = true },
+        },
+        attributeRequirements = {
+            { type = tes3.attribute.intelligence},
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_C_L_abacus",
+        priority = 296,
+        excludedPieces = { 295 },
+        slots = { "Foreground_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.mercantile, major = true },
+        },
+        attributeRequirements = {
+            { type = tes3.attribute.intelligence},
+        },
         specialisationRequirements = {},
     },
     {
         texture = "weap_dagger",
         priority = 300,
-        excludedPieces = {},
+        excludedPieces = { 360 },
         slots = { "Below_Right_2" },
         shieldState = "none",
         isGold = false,
@@ -580,10 +857,28 @@ config.imagePieces = {
         specialisationRequirements = {},
     },
     {
+        texture = "weap_dagger_poison",
+        priority = 305,
+        excludedPieces = {},
+        slots = { "Background_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = false,
+        skillRequirements = {
+            { type = tes3.skill.shortBlade },
+            { type = tes3.skill.sneak },
+            { type = tes3.skill.alchemy, major = true},
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {
+            { type = tes3.specialization.stealth },
+        },
+    },
+    {
         texture = "misc_mortar",
         priority = 310,
-        excludedPieces = {},
-        slots = { "Midground_Left" },
+        excludedPieces = { 6 },
+        slots = { "Midground_Left", "Above_Left_1" },
         shieldState = "none",
         isGold = false,
         isFiller = false,
@@ -612,7 +907,7 @@ config.imagePieces = {
     {
         texture = "weap_waraxe_sh",
         priority = 330,
-        excludedPieces = {},
+        excludedPieces = { 331 },
         slots = { "Above_Left_1" },
         shieldState = "requiresShield",
         isGold = false,
@@ -628,9 +923,27 @@ config.imagePieces = {
         },
     },
     {
+        texture = "weap_waraxe_sh_02",
+        priority = 331,
+        excludedPieces = { 330 },
+        slots = { "Above_Left_1" },
+        shieldState = "requiresShield",
+        isGold = false,
+        isFiller = false,
+        skillRequirements = {
+            { type = tes3.skill.axe},
+        },
+        attributeRequirements = {
+            { type = tes3.attribute.strength, negative = true },
+        },
+        specialisationRequirements = {
+            { type = tes3.specialization.combat },
+        },
+    },
+    {
         texture = "misc_gold_CR",
         priority = 340,
-        excludedPieces = { 350 },
+        excludedPieces = { 9, 350, 360 },
         slots = { "Foreground_Right", "Below_Right_3" },
         shieldState = "none",
         isGold = true,
@@ -640,14 +953,16 @@ config.imagePieces = {
             { type = tes3.skill.sneak },
             { type = tes3.skill.speechcraft },
         },
-        attributeRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.luck, negative = true },
+        },
         specialisationRequirements = {},
-		isOr = true
+		isOr = true,
     },
     {
         texture = "misc_gold_CL",
         priority = 350,
-        excludedPieces = { 340 },
+        excludedPieces = { 340, 360 },
         slots = { "Foreground_Left", "Below_Left_5" },
         shieldState = "none",
         isGold = true,
@@ -659,12 +974,27 @@ config.imagePieces = {
         },
         attributeRequirements = {},
         specialisationRequirements = {},
-		isOr = true
+		isOr = true,
+    },
+    {
+        texture = "misc_gold_CL_quiver",
+        priority = 355,
+        excludedPieces = { 340, 350, 360 },
+        slots = { "Foreground_Left" },
+        shieldState = "none",
+        isGold = true,
+        isFiller = false,
+        skillRequirements = {
+            { type = tes3.skill.marksman, major = true },
+            { type = tes3.skill.sneak },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {},
     },
     {
         texture = "weap_club",
         priority = 360,
-        excludedPieces = {},
+        excludedPieces = { 140, 300, 340, 350, 355 },
         slots = { "Above_Left_2" },
         shieldState = "none",
         isGold = false,
@@ -733,11 +1063,29 @@ config.imagePieces = {
         },
     },
     {
-        texture = "armo_helm",
+        texture = "misc_repairkit",
         priority = 400,
+        excludedPieces = { 360, 401 },
+        slots = { "Above_Right_4" },
+        shieldState = "noShield",
+        isGold = false,
+        isFiller = false,
+        skillRequirements = {
+            { type = tes3.skill.armorer},
+            { type = tes3.skill.heavyArmor},
+        },
+        attributeRequirements = {
+            { type = tes3.attribute.endurance},
+            { type = tes3.attribute.strength},
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "armo_helm_sh",
+        priority = 401,
         excludedPieces = {},
         slots = { "Above_Left_5" },
-        shieldState = "none",
+        shieldState = "requiresShield",
         isGold = false,
         isFiller = false,
         skillRequirements = {
@@ -802,25 +1150,6 @@ config.imagePieces = {
         attributeRequirements = {},
         specialisationRequirements = {},
     },
-    {
-        texture = "misc_repairkit",
-        priority = 450,
-        excludedPieces = {},
-        slots = { "Above_Right_4" },
-        shieldState = "noShield",
-        isGold = false,
-        isFiller = false,
-        skillRequirements = {
-            { type = tes3.skill.armorer},
-            { type = tes3.skill.heavyArmor},
-        },
-        attributeRequirements = {
-            { type = tes3.attribute.endurance},
-            { type = tes3.attribute.strength},
-        },
-        specialisationRequirements = {},
-    },
-
     {
         texture = "misc_repairkit_sh",
         priority = 460,
@@ -894,6 +1223,203 @@ config.imagePieces = {
         },
         attributeRequirements = {},
         specialisationRequirements = {},
+    },
+    {
+        texture = "fill_A_L_Booze_01",
+        priority = 510,
+        excludedPieces = {},
+        slots = { "Background_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.strength },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_A_L_Booze_02",
+        priority = 520,
+        excludedPieces = {},
+        slots = { "Background_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.endurance },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_A_R_Booze_01",
+        priority = 530,
+        excludedPieces = {},
+        slots = { "Background_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.strength },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_A_R_Booze_02",
+        priority = 540,
+        excludedPieces = {},
+        slots = { "Background_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.endurance },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_C_L_gauntlet",
+        priority = 545,
+        excludedPieces = { 546 },
+        slots = { "Foreground_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.heavyArmor },
+			{ type = tes3.skill.mediumArmor },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {},
+		isOr = true,
+    },
+    {
+        texture = "fill_C_R_gauntlet",
+        priority = 546,
+        excludedPieces = { 545 },
+        slots = { "Foreground_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.heavyArmor },
+			{ type = tes3.skill.mediumArmor },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {},
+		isOr = true,
+    },
+    {
+        texture = "fill_C_L_Booze_01",
+        priority = 550,
+        excludedPieces = {},
+        slots = { "Foreground_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.strength },
+			{ type = tes3.attribute.endurance },
+        },
+        specialisationRequirements = {},
+		isOr = true,
+    },
+    {
+        texture = "fill_C_R_Luck_01",
+        priority = 551,
+        excludedPieces = { 9, 10, 181 },
+        slots = { "Foreground_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.luck },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_C_R_Booze_01",
+        priority = 560,
+        excludedPieces = {},
+        slots = { "Foreground_Right" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.strength },
+			{ type = tes3.attribute.endurance },
+        },
+        specialisationRequirements = {},
+		isOr = true,
+    },
+    {
+        texture = "fill_A_L_Books_04",
+        priority = 561,
+        excludedPieces = {},
+        slots = { "Background_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {},
+        attributeRequirements = {
+            { type = tes3.attribute.intelligence },
+        },
+        specialisationRequirements = {},
+    },
+    {
+        texture = "fill_B_M_Waterskin_01",
+        priority = 580,
+        excludedPieces = { 590 },
+        slots = { "Background_Middle", "Midground_Middle" },
+        shieldState = "noShield",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.unarmored, negative = true },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {
+            { type = tes3.specialization.stealth },
+        },
+    },
+    {
+        texture = "fill_B_M_Satchel_01",
+        priority = 590,
+        excludedPieces = { 580 },
+        slots = { "Background_Middle", "Midground_Middle" },
+        shieldState = "noShield",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.unarmored },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {
+            { type = tes3.specialization.stealth },
+        },
+    },
+    {
+        texture = "fill_A_L_coinpurse",
+        priority = 610,
+        excludedPieces = {},
+        slots = { "Background_Left" },
+        shieldState = "none",
+        isGold = false,
+        isFiller = true,
+        skillRequirements = {
+            { type = tes3.skill.sneak },
+			{ type = tes3.skill.speechcraft },
+        },
+        attributeRequirements = {},
+        specialisationRequirements = {
+            { type = tes3.specialization.stealth },
+        },
     },
 }
 
