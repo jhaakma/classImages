@@ -1,4 +1,4 @@
-name: Package Key Scroller
+name: Package Dynamic Class Images
 on:
   push:
     tags:
@@ -7,7 +7,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      ARCHIVE_NAME: KeyScroller
+      ARCHIVE_NAME: DynamicClassImages
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
