@@ -12,7 +12,7 @@ This is accomplished by mixing nearly 100 different images based on criteria suc
 In addition to dynamically replacing images for custom classes, this mod also packages new HD renders of the vanilla classes which are faithful to the original arrangement.
 
 ### Requirements
-This mod requires both MWSE﻿ and UI Expansion﻿ to function as intended.
+This mod requires both [MWSE](https://www.nexusmods.com/morrowind/mods/41102) and [UI Expansion](https://www.nexusmods.com/morrowind/mods/46071) to function as intended.
 
 ### Recommendations
-We recommend using this mod with mods that add new classes to the game like Ahead of the Classes﻿ or Playable NPC Classes﻿. Merlord's new Key Scroller﻿ mod is also recommended for easier perusing of classes!
+We recommend using this mod with mods that add new classes to the game like [Ahead of the Classes](https://www.nexusmods.com/morrowind/mods/50346) or [Playable NPC Classes](https://www.nexusmods.com/morrowind/mods/43428). Merlord's new [Key Scroller](https://www.nexusmods.com/morrowind/mods/52962) mod is also recommended for easier perusing of classes!
