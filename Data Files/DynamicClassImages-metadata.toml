@@ -2,7 +2,7 @@
 name = "Dynamic Class Images"
 description = "Replaces class images with dynamically generated HD versions based on class attributes, skills and specialization."
 authors = [ "Merlord", "Melchior Dahrk",]
-version = "1.0.0"
+version = "1.1.0"
 
 [dependencies]
 assets = [ "MWSE/mods/classImages",]
