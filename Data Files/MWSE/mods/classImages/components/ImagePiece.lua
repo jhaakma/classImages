@@ -86,7 +86,7 @@ function ImagePiece.register(e)
         isOr = e.isOr or false
     }
     logger:assert(type(imagePiece.priority) == "number", "ImagePiece priority must be a number")
-    logger:info("registering %s - %s", imagePiece.texture, imagePiece.priority)
+    logger:debug("registering %s - %s", imagePiece.texture, imagePiece.priority)
     table.insert(ImagePiece.registeredPieces, imagePiece)
 end
 

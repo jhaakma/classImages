@@ -1,7 +1,7 @@
 [package]
 name = "Dynamic Class Images"
 description = "Replaces class images with dynamically generated HD versions based on class attributes, skills and specialization."
-authors = [ "Merlord", "Melchior Darhk",]
+authors = [ "Merlord", "Melchior Dahrk",]
 version = "1.0.0"
 
 [dependencies]
@@ -12,3 +12,7 @@ buildnumber = 3228
 
 [tools.mwse]
 lua-mod = "classImages"
+
+[dependencies.mods."UI Expansion"]
+mwse-module = "UI Expansion"
+version = ">=1.6.3"

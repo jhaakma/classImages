@@ -17,14 +17,48 @@ end
 
 config.maxPieces = 15
 
+config.slotsOrdered = {
+    "Background_Left",
+    "Background_Middle",
+    "Background_Right",
+    "Midground_Left",
+    "Midground_Middle",
+    "Midground_Right",
+    "Foreground_Left",
+    "Foreground_Middle",
+    "Foreground_Right",
+    "Below_Left_1",
+    "Below_Left_2",
+    "Below_Left_3",
+    "Below_Left_4",
+    "Below_Left_5",
+    "Below_Middle",
+    "Below_Right_1",
+    "Below_Right_2",
+    "Below_Right_3",
+    "Above_Left_1",
+    "Above_Left_2",
+    "Above_Left_3",
+    "Above_Left_4",
+    "Above_Middle",
+    "Above_Right_1",
+    "Above_Right_2",
+    "Above_Right_3",
+    "Above_Right_4",
+    "Above_Right_5",
+    "Above_Left_5",
+}
+
+
 ---@class ClassImages.ImageConfig
 ---@field imageBlockName string The name of the image block to use.
+---@field createBlock boolean Whether to create a new block for the image.
 ---@field width number The width of the image block.
 ---@field height number The height of the image block.
 ---@field parentWidth number The width of the parent block.
 ---@field parentHeight number The height of the parent block.
 
----@type ClassImages.ImageConfig[]
+---@type table<string, ClassImages.ImageConfig>
 config.menuData = {
     MenuLevelUp = {
         imageBlockName = "MenuLevelUp_Picture",
@@ -39,7 +73,24 @@ config.menuData = {
         height = 128,
         parentWidth = 264,
         parentHeight = 136,
-    }
+    },
+}
+
+---@type  ClassImages.ImageConfig
+config.tooltipConfig = {
+    imageBlockName = "image_container",
+    width = 384,
+    height = 192,
+    parentWidth = 384,
+    parentHeight = 192,
+}
+
+config.createClassMenuConfig = {
+    imageBlockName = "CreateClassImage",
+    width  = 451,
+    height = 256,
+    parentWidth = 453,
+    parentHeight = 258,
 }
 
 ---@type ClassImages.ImagePiece[]
